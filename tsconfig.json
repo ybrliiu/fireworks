@@ -8,6 +8,8 @@
     // node_modulesからライブラリを読み込む
     "moduleResolution": "node",
     "noImplicitAny": false,
-    "removeComments": false
+    "removeComments": false,
+    "rootDir": "src/",
+    "outDir": "dist/"
   }
 }
