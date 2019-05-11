@@ -1,4 +1,4 @@
-import * as p5 from "p5";
+import * as p5 from 'p5';
 
 export class Particle {
   public processing: p5;
