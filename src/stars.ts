@@ -3,6 +3,7 @@ import { Star } from './star';
 
 export class Stars {
   private stars: Star[];
+  private didIgnited: boolean = false;
 
   constructor(
     private processing: p5,
@@ -20,7 +21,12 @@ export class Stars {
     return this.stars.length === 0;
   }
 
+  public ignite(): void {
+    this.didIgnited = true;
+  }
+
   public update(): void {
+    if ( this.didIgnited ) {
     for (let i = this.stars.length - 1; i >= 0; i--) {
       const star = this.stars[i];
       star.update();
@@ -28,9 +34,11 @@ export class Stars {
         this.stars.splice(i, 1);
       }
     }
+    }
   }
 
   public show(): void {
     this.stars.forEach(star => star.show());
   }
+
 }
