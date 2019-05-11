@@ -26,7 +26,7 @@ export class Firework {
       for (let i = this.particles.length - 1; i >= 0; i--) {
         this.particles[i].applyForce(this.gravity);
         this.particles[i].update();
-        if (this.particles[i].done()){
+        if (this.particles[i].done()) {
           this.particles.splice(i, 1);
         }
       }
