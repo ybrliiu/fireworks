@@ -58,4 +58,5 @@ const sketch = (processing: p5) => {
 
 };
 
-const sketchProcessing = new p5(sketch);
+new p5(sketch);
+
