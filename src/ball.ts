@@ -18,14 +18,19 @@ export class Ball {
 
   private explode(): void {
     this.didExploded = true;
-    this.stars.ignite();
+    this.stars.ignite(this.position);
   }
 
   public update(): void {
-    this.vector.add(this.launchSpeed);
-    this.position.add(this.vector);
-    if ( this.position.y >= 0 && !this.didExploded ) {
-      this.explode();
+    if ( this.didExploded ) {
+      this.stars.update();
+    } else {
+      this.vector.add(this.launchSpeed);
+      this.position.add(this.vector);
+      // 速度が0(=頂点に来た時)に爆発
+      if ( this.vector.y >= 0 ) {
+        this.explode();
+      }
     }
   }
 
@@ -34,10 +39,14 @@ export class Ball {
   }
 
   public show(): void {
-    this.processing.colorMode(this.processing.HSB);
-    this.processing.strokeWeight(6);
-    this.processing.stroke(this.hue, 255, 255);
-    this.processing.point(this.position.x, this.position.y);
+    if ( this.didExploded ) {
+      this.stars.show();
+    } else {
+      this.processing.colorMode(this.processing.HSB);
+      this.processing.strokeWeight(6);
+      this.processing.stroke(this.hue, 255, 255);
+      this.processing.point(this.position.x, this.position.y);
+    }
   }
 
 }

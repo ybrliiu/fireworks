@@ -10,7 +10,7 @@ export class Firework {
   private ball: Ball;
 
   constructor(processing: p5, position: p5.Vector, gravity: p5.Vector, hue: number) {
-    const stars = new Stars(processing, gravity, position, hue);
+    const stars = new Stars(processing, gravity, hue);
     this.ball = new Ball(processing, position, hue, gravity, stars);
   }
 
