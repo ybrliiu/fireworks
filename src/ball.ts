@@ -2,7 +2,6 @@ import * as p5 from 'p5';
 import { Stars } from './stars';
 
 export class Ball {
-  private stars: Stars;
   private vector: p5.Vector;
   private didExploded: boolean = false;
 
@@ -10,12 +9,11 @@ export class Ball {
     private processing: p5,
     private position: p5.Vector,
     private hue: number,
-    private gravity: p5.Vector, // Starsを作るのに必要, 後でfactoryに出す
     private launchSpeed: p5.Vector, // 打ち上げ速度
+    private stars: Stars,
   ) {
     this.position = processing.createVector(position.x, position.y);
     this.vector = processing.createVector(0, processing.random(-29, -15));
-    this.stars = new Stars(this.processing, this.gravity, this.position, this.hue);
   }
 
   private explode(): void {
@@ -31,10 +29,14 @@ export class Ball {
     }
   }
 
+  public didWentOut(): boolean {
+    return this.didExploded && this.stars.didWentOut();
+  }
+
   public show(): void {
     this.processing.colorMode(this.processing.HSB);
-      this.processing.strokeWeight(6);
-      this.processing.stroke(this.hue, 255, 255);
+    this.processing.strokeWeight(6);
+    this.processing.stroke(this.hue, 255, 255);
     this.processing.point(this.position.x, this.position.y);
   }
 
