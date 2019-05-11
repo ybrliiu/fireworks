@@ -22,7 +22,7 @@ export class Firework {
   }
 
   public update(): void {
-    if ( this.isExploded ) {
+    if (this.isExploded) {
       for (let i = this.particles.length - 1; i >= 0; i--) {
         this.particles[i].applyForce(this.gravity);
         this.particles[i].update();
@@ -30,11 +30,10 @@ export class Firework {
           this.particles.splice(i, 1);
         }
       }
-    }
-    else {
+    } else {
       this.particle.applyForce(this.gravity);
       this.particle.update();
-      if ( this.particle.vector.y >= 0 ) {
+      if (this.particle.vector.y >= 0) {
         this.isExploded = true;
         this.explode();
       }
@@ -42,7 +41,7 @@ export class Firework {
   }
 
   public explode(): void {
-    for (let i = 0; i < 100; i++){
+    for (let i = 0; i < 100; i++) {
       const p = new Particle(
         this.particle.processing,
         this.particle.position,
@@ -54,14 +53,12 @@ export class Firework {
   }
 
   public show(): void {
-    if ( this.isExploded ) {
+    if (this.isExploded) {
       this.particles.forEach(particle => {
-        particle.show()
+        particle.show();
       });
-    }
-    else {
+    } else {
       this.particle.show();
     }
   }
-
 }
