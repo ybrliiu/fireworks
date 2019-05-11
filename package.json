@@ -6,7 +6,6 @@
     "tsc": "tsc",
     "lint": "eslint src/*.ts",
     "format": "prettier src/*.ts",
-    "precommit": "lint-staged",
     "build": "webpack",
     "watch": "concurrently \"browser-sync start --server -w\" \" webpack --watch\""
   },
@@ -37,8 +36,13 @@
   },
   "lint-staged": {
     "*.{js,json}": [
-      "prettier --write",
+      "prettier --write src/*.ts",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
