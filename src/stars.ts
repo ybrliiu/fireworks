@@ -9,15 +9,10 @@ export class Stars {
     private gravity: p5.Vector,
     private position: p5.Vector,
     private hue: number,
-    private num: number = 100,
+    private num: number = 100
   ) {
     this.stars = new Array(this.num).map(() => {
-      return new Star(
-        this.processing,
-        this.gravity,
-        this.position,
-        this.hue,
-      );
+      return new Star(this.processing, this.gravity, this.position, this.hue);
     });
   }
 
@@ -26,17 +21,16 @@ export class Stars {
   }
 
   public update(): void {
-      for (let i = this.stars.length - 1; i >= 0; i--) {
-        const star = this.stars[i];
-        star.update();
-        if ( star.didWentOut() ) {
-          this.stars.splice(i, 1);
-        }
+    for (let i = this.stars.length - 1; i >= 0; i--) {
+      const star = this.stars[i];
+      star.update();
+      if (star.didWentOut()) {
+        this.stars.splice(i, 1);
       }
+    }
   }
 
   public show(): void {
-      this.stars.forEach(star => star.show());
+    this.stars.forEach(star => star.show());
   }
-
 }

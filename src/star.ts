@@ -9,7 +9,7 @@ export class Star {
     private gravity: p5.Vector,
     private position: p5.Vector,
     private hue: number,
-    private lifespan: number = 255,
+    private lifespan: number = 255
   ) {
     this.lifespan;
     this.position = processing.createVector(position.x, position.y);
@@ -46,5 +46,4 @@ export class Star {
     // 点を描画
     this.processing.point(this.position.x, this.position.y);
   }
-
 }
