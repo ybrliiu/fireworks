@@ -21,9 +21,9 @@ export class Stars {
   // このAPI直感的でない, starにもigniteメソッド作るべき?
   public ignite(position: p5.Vector): void {
     this.didIgnited = true;
-    for (let i = 0; i < this.num; i++) {
-      this.stars.push(new Star(this.processing, this.gravity, position, this.hue));
-    }
+    this.stars = Array.from(new Array(this.num).keys()).map(() => {
+      return new Star(this.processing, this.gravity, position, this.hue);
+    });
   }
 
   public update(): void {

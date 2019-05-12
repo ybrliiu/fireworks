@@ -11,14 +11,14 @@ export class Fireworks {
     this.fireworks = [];
     this.gravity = processing.createVector(0, 0.4);
     this.width = processing.windowWidth;
-    this.height = processing.windowHeight;
+    this.height = processing.windowHeight + 200;
   }
 
   public update(): void {
     if (Math.random() < 0.05 && this.fireworks.length < 5) {
       const position = this.processing.createVector(
         this.processing.random(this.width),
-        this.height
+        this.height,
       );
       const hue = Math.floor(Math.random() * 255);
       const firework = new Firework(this.processing, position, this.gravity, hue);
