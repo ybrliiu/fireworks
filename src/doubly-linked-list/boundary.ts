@@ -1,14 +1,12 @@
 import { NodeInterface } from './node-interface';
 
-export class Node<T> implements NodeInterface<T> {
-  private data: T;
+export class Boundary<T> implements NodeInterface<T> {
   private next: NodeInterface<T>;
   private prev: NodeInterface<T>;
 
-  constructor(data: T, prev: NodeInterface<T>, next: NodeInterface<T>) {
-    this.data = data;
-    this.prev = prev;
-    this.next = next;
+  constructor() {
+    this.next = this;
+    this.prev = this;
   }
 
   public getNext(): NodeInterface<T> {
@@ -25,15 +23,6 @@ export class Node<T> implements NodeInterface<T> {
 
   public setPrev(inode: NodeInterface<T>): void {
     this.prev = inode;
-  }
-
-  public getData(): T {
-    return this.data;
-  }
-
-  public remove(): void {
-    this.prev.setNext(this.next);
-    this.next.setPrev(this.prev);
   }
 
 }

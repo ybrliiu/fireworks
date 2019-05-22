@@ -1,80 +1,72 @@
 import { Node } from './doubly-linked-list/node';
+import { Boundary } from './doubly-linked-list/boundary';
+import { NodeInterface } from './doubly-linked-list/node-interface';
 
 export class DoublyLinkedList<T> {
-  private head?: Node<T>;
-  private tail?: Node<T>;
+  private boundary: Boundary<T>;
 
   constructor(array?: T[]) {
+    this.boundary = new Boundary<T>();
     if ( array !== undefined ) {
       for (let value of array) {
-        this.insert(value);
+        this.insertTail(value);
       }
     }
   }
 
   get length(): number {
     let sizeCounter = 0;
-    let node = this.head;
-    while ( node !== undefined ) {
-      node = node.getNext();
+    let inode = this.boundary.getNext();
+    while ( inode instanceof Node ) {
+      inode = inode.getNext();
       sizeCounter += 1;
     }
     return sizeCounter;
   }
 
   public isEmpty(): boolean {
-    return this.head === undefined && this.tail === undefined;
+    return this.boundary.getNext() === this.boundary && this.boundary.getPrev() === this.boundary;
   }
 
-  public insert(data: T): void {
-    const newNode = new Node<T>(data);
-    if (this.isEmpty()) {
-      this.head = this.tail = newNode;
-    } else {
-      if (this.tail !== undefined) {
-        // sizeが1以上なら絶対ここ来ないけどね
-        this.tail.setNext(newNode);
-        this.tail = newNode;
-      }
-    }
+  public insertBefore(inode: NodeInterface<T>, data: T): void {
+    const newNode = new Node<T>(data, inode.getPrev(), inode);
+    inode.getPrev().setNext(newNode);
+    inode.setPrev(newNode);
   }
-  
-  public removeNode(node: Node<T>): void {
-    if ( this.head !== undefined ) {
-      if ( this.head.getNext() === undefined ) {
-        this.head = this.tail = undefined;
-      }
-    }
 
-    // 先頭のnode消すとバグる
-    if ( this.head === node ) {
-      this.head = this.head.getNext();
-      if ( this.head === undefined ) {
-        this.tail = undefined;
-      }
-    } else if ( this.tail === node ) {
-      this.tail = this.tail.getPrev();
-      if ( this.tail === undefined ) {
-        this.head = undefined;
-      }
-    }
+  public insertHead(data: T): void {
+    this.insertBefore(this.boundary, data);
+  }
 
-    node.remove();
+  public insertAfter(inode: NodeInterface<T>, data: T): void {
+    const newNode = new Node<T>(data, inode, inode.getNext());
+    inode.getNext().setPrev(newNode);
+    inode.setNext(newNode);
+  }
+
+  public insertTail(data: T): void {
+    this.insertAfter(this.boundary, data);
+  }
+
+  public removeNode(inode: NodeInterface<T>): void {
+    if ( inode instanceof Node ) {
+      inode.remove();
+    }
   }
 
   public forEach(callback: (node: Node<T>) => void): void {
-    let node = this.head;
-    while ( node !== undefined ) {
-      callback(node);
-      node = node.getNext();
+    let inode = this.boundary.getNext();
+    while ( inode instanceof Node ) {
+      callback(inode);
+      inode = inode.getNext();
     }
   }
 
   public reverseForEach(callback: (node: Node<T>) => void): void {
-    let node = this.tail;
-    while ( node !== undefined ) {
-      callback(node);
-      node = node.getPrev();
+    let inode = this.boundary.getPrev();
+    while ( inode instanceof Node ) {
+      callback(inode);
+      inode = inode.getPrev();
     }
   }
 
