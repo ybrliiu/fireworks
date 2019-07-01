@@ -4,11 +4,11 @@ import { Node } from './doubly-linked-list/node';
 import { DoublyLinkedList } from './doubly-linked-list';
 
 export class Fireworks {
-  private fireworks: DoublyLinkedList<Firework>;
-  private gravity: p5.Vector;
-  private width: number;
-  private height: number;
-
+  private readonly fireworks: DoublyLinkedList<Firework>;
+  private readonly gravity: p5.Vector;
+  private readonly width: number;
+  private readonly height: number;
+  
   constructor(private processing: p5) {
     this.fireworks = new DoublyLinkedList();
     this.gravity = processing.createVector(0, 0.4);

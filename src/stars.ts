@@ -38,7 +38,6 @@ export class Stars {
           this.stars.removeNode(node);
         }
       });
-      console.log(this.stars.length);
     }
   }
 

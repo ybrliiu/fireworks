@@ -5,7 +5,8 @@ const sketch = (processing: p5) => {
 
   processing.setup = () => {
     // canvasの作成
-    processing.createCanvas(processing.windowWidth, processing.windowHeight);
+    const canvas = processing.createCanvas(processing.windowWidth, processing.windowHeight);
+    canvas.parent('p5-canvas');
     // 花火を出す色の指定の仕方
     processing.colorMode(processing.HSB);
     // 線の色を設定
